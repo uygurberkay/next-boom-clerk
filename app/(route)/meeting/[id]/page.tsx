@@ -15,7 +15,7 @@ interface MeetingProps  {
 
 const Meeting = ({ params }: MeetingProps) => {
 
-    const [ isSetupCompleted, setIsSetupComplete ] = useState(false)
+    const [ isSetupCompleted, setIsSetupCompleted ] = useState(false)
     const { user, isLoaded } = useUser();
     const { call , isCallLoading } = useGetCallById(params.id)
 
@@ -26,7 +26,7 @@ const Meeting = ({ params }: MeetingProps) => {
             <StreamCall call={call}>
                 <StreamTheme>
                     {!isSetupCompleted ? (
-                        <MeetingSetup setIsSetupComplete={setIsSetupComplete} />
+                        <MeetingSetup setIsSetupComplete={setIsSetupCompleted} />
                     ): ( 
                         <MeetingRoom />
                     )}

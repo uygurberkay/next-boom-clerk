@@ -10,6 +10,7 @@ import Loader from './Loader'
 import { useToast } from "@/components/ui/use-toast"
 import { Textarea } from './ui/textarea'
 import ReactDatePicker from "react-datepicker";
+import { Input } from './ui/input'
 
 type meetingStatus = 'isScheduleMeeting' | 'isJoiningMeeting' | 'isInstantMeeting' | undefined
 
@@ -167,6 +168,22 @@ const MeetingTypeList = () => {
                 buttonText='Start Meeting'
                 handleClick={createMeeting}
             />
+            {/* Join meeting's Modal */}
+            <MeetingModal 
+                isOpen={meetingState === 'isJoiningMeeting'}
+                onClose={() => setMeetingState(undefined)}
+                title="Type the link here"
+                className='text-center'
+                buttonText='Join Meeting'
+                handleClick={() => router.push(values.link)}
+            >
+                <Input 
+                    className='bg-dark-3 border-none focus-visible:ring-0 focus-visible:ring-offset-0'
+                    type='email' 
+                    placeholder='Meeting Link' 
+                    onChange={(e) => setValues({ ...values, link: e.target.value})}
+                />
+            </MeetingModal>
 
         </section>
     )

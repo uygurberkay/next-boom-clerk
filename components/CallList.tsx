@@ -44,20 +44,21 @@ const CallList = ({ type }: { type:  CallListProps}) => {
 
     useEffect(() => {
         const fetchRecordings = async () => {
-            try {
-                const callData = await Promise.all(callRecordings.map((meeting) => meeting.queryRecordings()))
-    
-                const recordings = callData
-                    .filter(call => call.recordings.length > 0)
-                    .flatMap(call => call.recordings)
-    
-                    setRecordings(recordings)
-            } catch (error) {
-                toast({ title: 'Try again later' })
+            const callData = await Promise.all(
+                callRecordings?.map((meeting) => meeting.queryRecordings()) ?? [],
+            );
+        
+            const recordings = callData
+                .filter((call) => call.recordings.length > 0)
+                .flatMap((call) => call.recordings);
+        
+            setRecordings(recordings);
+            };
+        
+            if (type === 'recordings') {
+            fetchRecordings();
             }
-        }
-        if(type === 'recordings') fetchRecordings()
-        }, [type, callRecordings])
+    }, [type, callRecordings]);
     
     const calls = getCalls();
     const noCallsMessage = getNoCallsMessage();
